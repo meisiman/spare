@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>修改顾客界面</title>
+    <!-- 引入 Bootstrap -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <script>
+        function ok() {
+            alert("修改成功");
+        }
+    </script>
+</head>
+<body>
+<ul class="nav nav-tabs">
+    <li role="presentation"><a href="/allSupply">供应商信息</a></li>
+    <li role="presentation"><a href="/allSpare">零件信息</a></li>
+    <li role="presentation" class="active"><a href="/allCustomer">顾客信息</a></li>
+    <li role="presentation"><a href="/allCusInform">顾客需求</a></li>
+    <li role="presentation"><a href="/allSupInform">供应信息</a></li>
+    <li role="presentation"><a href="/trade">交易</a></li>
+</ul>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="page-header">
+                <h1>
+                    <small>修改顾客</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <form action="/updateCustomer" method="post">
+        <input type="hidden" name="cusId" th:value="${customer.cusId}">
+        <div class="form-group">
+            <label>顾客名字：</label>
+            <input type="text" name="cusName" class="form-control" th:value="${customer.cusName}" required>
+        </div>
+        <div class="form-group">
+            <label>顾客地址：</label>
+            <input type="text" name="cusAddress" class="form-control" th:value="${customer.cusAddress}" required>
+        </div>
+        <div class="form-group">
+            <label>顾客电话：</label>
+            <input type="text" name="cusPhone" class="form-control" th:value="${customer.cusPhone}" required>
+        </div>
+        <input type="submit" class="btn btn-default" th:value="修改" onclick="ok()">
+    </form>
+</div>
+</body>
+</html>

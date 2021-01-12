@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.spare.dao.TradeMapper">
+    <select id="queryAllTrade" resultType="com.example.spare.vo.TradeVO">
+        SELECT DISTINCT cus_inform.spare_id,cus_inform.cus_id,sup_inform.sup_id,customer.cus_name,spare.
+	        spare_name,supply.sup_name,sup_inform.`offer`,cus_inform.`require`
+        FROM cus_inform,sup_inform,customer,spare,supply
+        WHERE cus_inform.spare_id=sup_inform.spare_id
+        AND customer.cus_name=(SELECT cus_name FROM customer WHERE customer.cus_id=cus_inform.cus_id)
+        AND spare.spare_name=(SELECT spare_name FROM spare WHERE spare.spare_id=cus_inform.spare_id)
+        AND supply.sup_name=(SELECT sup_name FROM supply WHERE supply.sup_id=sup_inform.sup_id);
+    </select>
+</mapper>

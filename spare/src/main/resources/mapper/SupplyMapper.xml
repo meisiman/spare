@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.spare.dao.SupplyMapper">
+    <insert id="addSupply" parameterType="Supply">
+        insert into spare.supply(sup_name,sup_address,sup_phone,sup_intro)
+        values (#{supName},#{supAddress},#{supPhone},#{supIntro})
+    </insert>
+
+    <delete id="deleteSupplyById" parameterType="int">
+        delete from spare.supply where sup_id=#{supId}
+    </delete>
+
+    <update id="updateSupply" parameterType="Supply">
+        update spare.supply
+        set sup_name = #{supName},sup_address = #{supAddress},sup_phone = #{supPhone},sup_intro = #{supIntro}
+        where sup_id = #{supId}
+    </update>
+
+    <select id="querySupplyById" resultType="Supply">
+        select * from spare.supply
+        where sup_id = #{supId}
+    </select>
+
+    <select id="queryAllSupply" resultType="Supply">
+        SELECT * from spare.supply
+    </select>
+
+    <select id="querySupplyByName" resultType="Supply">
+        select * from spare.supply
+        <where>
+            <if test="supName != null">
+                sup_name like CONCAT(#{supName},'%')
+            </if>
+        </where>
+    </select>
+</mapper>

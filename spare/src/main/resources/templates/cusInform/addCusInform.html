@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>新增顾客需求界面</title>
+    <!-- 引入 Bootstrap -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <script>
+        function add() {
+            const require = document.getElementById('require').value;
+            if(isNaN(require)){
+                alert("需求量是数字，添加失败");
+                return false;
+            } else if (require<0){
+                alert("需求量不得为负数，添加失败");
+                return false;
+            }else if (require>=2147483648){
+                alert("需求量过大，添加失败");
+                return false;
+            }else {
+                alert("添加成功");
+                return true;
+            }
+        }
+    </script>
+</head>
+<body>
+<ul class="nav nav-tabs">
+    <li role="presentation"><a href="/allSupply">供应商信息</a></li>
+    <li role="presentation"><a href="/allSpare">零件信息</a></li>
+    <li role="presentation"><a href="/allCustomer">顾客信息</a></li>
+    <li role="presentation" class="active"><a href="/allCusInform">顾客需求</a></li>
+    <li role="presentation"><a href="/allSupInform">供应信息</a></li>
+    <li role="presentation"><a href="/trade">交易</a></li>
+</ul>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="page-header">
+                <h1>
+                    <small>新增顾客需求</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <form action="/addCusInform" method="post" onsubmit="return add()">
+        <div class="form-group">
+            <label>顾客号：</label>
+            <input type="text" name="cusId" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>零件号：</label>
+            <input type="text" name="spareId" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>需求量：</label>
+            <input type="text" name="require" id="require" class="form-control" required>
+        </div>
+        <input type="submit" class="btn btn-default">
+        <input type="reset" class="btn btn-default">
+    </form>
+</div>
+</body>
+</html>

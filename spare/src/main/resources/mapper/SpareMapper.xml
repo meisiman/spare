@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.spare.dao.SpareMapper">
+    <insert id="addSpare" parameterType="Spare">
+        insert into spare.spare(spare_name,spare_weight,spare_color,spare_intro)
+        values (#{spareName},#{spareWeight},#{spareColor},#{spareIntro})
+    </insert>
+
+    <delete id="deleteSpareById" parameterType="int">
+        delete from spare.spare where spare_id=#{spareId}
+    </delete>
+
+    <update id="updateSpare" parameterType="Spare">
+        update spare.spare
+        set spare_name = #{spareName},spare_weight = #{spareWeight},spare_color = #{spareColor},spare_intro = #{spareIntro}
+        where spare_id = #{spareId}
+    </update>
+
+    <select id="querySpareById" resultType="Spare">
+        select * from spare.spare
+        where spare_id = #{spareId}
+    </select>
+
+    <select id="queryAllSpare" resultType="Spare">
+        SELECT * from spare.spare
+    </select>
+
+    <select id="querySpareByName" resultType="Spare">
+        select * from spare.spare
+        <where>
+            <if test="spareName != null">
+                spare_name like CONCAT(#{spareName},'%')
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>交易界面</title>
+    <!-- 引入 Bootstrap -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<ul class="nav nav-tabs">
+    <li role="presentation"><a href="/allSupply">供应商信息</a></li>
+    <li role="presentation"><a href="/allSpare">零件信息</a></li>
+    <li role="presentation"><a href="/allCustomer">顾客信息</a></li>
+    <li role="presentation"><a href="/allCusInform">顾客需求</a></li>
+    <li role="presentation"><a href="/allSupInform">供应信息</a></li>
+    <li role="presentation" class="active"><a href="/trade">交易</a></li>
+</ul>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="page-header">
+                <h1>
+                    <small>可交易列表</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>零件号</th>
+                    <th>顾客号</th>
+                    <th>供应商号</th>
+                    <th>零件名</th>
+                    <th>顾客名</th>
+                    <th>供应商名</th>
+                    <th>供应量</th>
+                    <th>需求量</th>
+                    <td>操作</td>
+                </tr>
+                </thead>
+
+                <tbody th:each="trade:${list}">
+                <tr>
+                    <td th:text="${trade.spareId}"></td>
+                    <td th:text="${trade.cusId}"></td>
+                    <td th:text="${trade.supId}"></td>
+                    <td th:text="${trade.spareName}"></td>
+                    <td th:text="${trade.cusName}"></td>
+                    <td th:text="${trade.supName}"></td>
+                    <td th:text="${trade.offer}"></td>
+                    <td th:text="${trade.require}"></td>
+                    <td>
+                        <a th:href="@{/toTrade(spareId=${trade.spareId},cusId=${trade.cusId},
+                        supId=${trade.supId},offer=${trade.offer},require=${trade.require})}">交易</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

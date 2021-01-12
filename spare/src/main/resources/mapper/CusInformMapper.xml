@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.spare.dao.CusInformMapper">
+    <insert id="addCusInform" parameterType="CusInform">
+        insert into spare.cus_inform(cus_id,spare_id,`require`)
+        values (#{cusId},#{spareId},#{require})
+    </insert>
+
+
+    <delete id="deleteCusInformById" parameterType="int">
+        delete from spare.cus_inform where cus_id=#{cusId} and spare_id=#{spareId}
+    </delete>
+
+    <update id="updateCusInform" parameterType="CusInform">
+        update spare.cus_inform
+        set `require` = #{require}
+        where cus_id = #{cusId} and spare_id=#{spareId}
+    </update>
+
+    <select id="queryCusInformById" resultType="CusInform">
+        select * from spare.cus_inform
+        where cus_id = #{cusId} and spare_id=#{spareId}
+    </select>
+
+    <select id="queryAllCusInform" resultType="com.example.spare.vo.CusInformVO">
+       SELECT DISTINCT cus_inform.cus_id,cus_inform.spare_id,customer.cus_name,spare.
+	        spare_name,spare.spare_weight,spare.spare_color,spare.spare_intro,cus_inform.`require`
+        FROM cus_inform,customer,spare
+        WHERE cus_inform.cus_id=customer.cus_id AND cus_inform.spare_id=spare.spare_id;
+    </select>
+
+    <select id="queryCusInformByCusId" resultType="com.example.spare.vo.CusInformVO">
+       SELECT DISTINCT cus_inform.cus_id,cus_inform.spare_id,customer.cus_name,spare.
+	        spare_name,spare.spare_weight,spare.spare_color,spare.spare_intro,cus_inform.`require`
+        FROM cus_inform,customer,spare
+        WHERE cus_inform.cus_id=customer.cus_id
+        AND cus_inform.spare_id=spare.spare_id
+        AND cus_inform.cus_id = #{cusId};
+    </select>
+
+    <select id="queryCusInformBySpareId" resultType="com.example.spare.vo.CusInformVO">
+       SELECT DISTINCT cus_inform.cus_id,cus_inform.spare_id,customer.cus_name,spare.
+	        spare_name,spare.spare_weight,spare.spare_color,spare.spare_intro,cus_inform.`require`
+        FROM cus_inform,customer,spare
+        WHERE cus_inform.cus_id=customer.cus_id
+        AND cus_inform.spare_id=spare.spare_id
+        AND cus_inform.spare_id = #{spareId};
+    </select>
+</mapper>

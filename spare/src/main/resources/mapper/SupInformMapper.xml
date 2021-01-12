@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.spare.dao.SupInformMapper">
+    <insert id="addSupInform" parameterType="SupInform">
+        insert into spare.sup_inform(sup_id,spare_id,`offer`)
+        values (#{supId},#{spareId},#{offer})
+    </insert>
+
+    <delete id="deleteSupInformById" parameterType="int">
+        delete from spare.sup_inform where sup_id=#{supId} and spare_id=#{spareId}
+    </delete>
+
+    <update id="updateSupInform" parameterType="SupInform">
+        update spare.sup_inform
+        set `offer` = #{offer}
+        where sup_id=#{supId} and spare_id=#{spareId}
+    </update>
+
+    <select id="querySupInformById" resultType="SupInform">
+        select * from spare.sup_inform
+        where sup_id=#{supId} and spare_id=#{spareId}
+    </select>
+
+    <select id="queryAllSupInform" resultType="com.example.spare.vo.SupInformVO">
+        SELECT DISTINCT sup_inform.sup_id,sup_inform.spare_id,supply.sup_name,spare.
+	        spare_name,spare.spare_weight,spare.spare_color,spare.spare_intro,sup_inform.`offer`
+        FROM sup_inform,supply,spare
+        WHERE sup_inform.sup_id=supply.sup_id AND sup_inform.spare_id=spare.spare_id;
+    </select>
+
+    <select id="querySupInformBySupId" resultType="com.example.spare.vo.SupInformVO">
+       SELECT DISTINCT sup_inform.sup_id,sup_inform.spare_id,supply.sup_name,spare.
+	        spare_name,spare.spare_weight,spare.spare_color,spare.spare_intro,sup_inform.`offer`
+        FROM sup_inform,supply,spare
+        WHERE sup_inform.sup_id=supply.sup_id
+        AND sup_inform.spare_id=spare.spare_id
+        AND sup_inform.sup_id = #{supId};
+    </select>
+
+    <select id="querySupInformBySpareId" resultType="com.example.spare.vo.SupInformVO">
+       SELECT DISTINCT sup_inform.sup_id,sup_inform.spare_id,supply.sup_name,spare.
+	        spare_name,spare.spare_weight,spare.spare_color,spare.spare_intro,sup_inform.`offer`
+        FROM sup_inform,supply,spare
+        WHERE sup_inform.sup_id=supply.sup_id
+        AND sup_inform.spare_id=spare.spare_id
+        AND sup_inform.spare_id = #{spareId};
+    </select>
+</mapper>
